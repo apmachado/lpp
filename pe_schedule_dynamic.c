@@ -12,13 +12,12 @@ int main(int argc, char* argv[]){
     #pragma omp parallel shared(a,b,n,sum) private(i,temp)
     {
         temp = 0;
-        #pragma omp for
+        #pragma omp for schedule(dynamic, 2)
         for (i=1; i<n; i++){
             temp = temp + a[i]*b[i];
-            
         }
 
-        #pragma omp barrier
+        #pragma omp critical
         sum = sum + temp;
         
     }
